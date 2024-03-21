@@ -1,38 +1,227 @@
-.App {
+/* App.css */
+body {
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.4em;
+  background: #f5f5f5;
+  color: #4d4d4d;
+  min-width: 230px;
+  max-width: 550px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 100%;
+  vertical-align: baseline;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.todoapp .title {
   text-align: center;
+  /* margin-top: 30px; */
+  /* margin: 50px 0 50px; */
+  font-size: 100px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Header styling */
+.header {
+  background: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.new-todo {
+  padding: 16px 16px 16px 60px;
+  border: none;
+  background: rgba(0, 0, 0, 0.003);
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 24px;
+  border-radius: 5px;
+  outline: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Main section styling */
+.main {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
+}
+
+/* TodoItem */
+.todo-item {
+  font-size: 24px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: relative;
+  background: #fff;
+  border-bottom: 1px solid #ededed;
 }
 
-.App-link {
-  color: #61dafb;
+/* Style for the checkbox that marks the todo as complete */
+.toggle {
+    width:35px;
+    height: 35px;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid black;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    margin-right: 20px;
+    background-color: white;
+}
+.toggle:checked {
+    appearance: auto;
+    clip-path: circle(50% at 50% 50%);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.todo-item.completed label {
+  color: #d9d9d9;
+  text-decoration: line-through;
+}
+
+label {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+/* Input field for editing todo text */
+.edit {
+  display: none;
+  width: calc(
+    100% - 60px
+  );
+  margin-right: 10px;
+  padding: 12px 15px;
+  font-size: 24px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.todo-item.editing .toggle,
+.todo-item.editing label {
+  display: none;
+}
+
+.todo-item.editing .edit {
+  display: inline-block;
+}
+
+/* Button to remove the todo, shown on hover */
+.destroy {
+  background: url('./assets/close.png') no-repeat center center;
+  background-size: cover;
+  width: 26px;
+  height: 26px;
+  border: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+  margin-left: 16px;
+}
+
+.todo-item:hover .destroy {
+  opacity: 1;
+}
+
+.todo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-list li {
+  position: relative;
+  font-size: 24px;
+  border-bottom: 1px solid #ededed;
+}
+
+.todo-list li:last-child {
+  border-bottom: none;
+}
+
+.todo-list li .view {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  transition: color 0.4s;
+}
+
+.todo-list li.completed .view {
+  color: #d9d9d9;
+  text-decoration: line-through;
+}
+
+/* Footer styling */
+.footer {
+  color: #777;
+  padding: 10px 15px;
+  height: 20px;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+
+.filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+.filters li {
+  display: inline;
+}
+
+.filters li a {
+  color: inherit;
+  margin: 3px;
+  padding: 3px 7px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+.filters li a.selected,
+.filters li a:hover {
+  border-color: rgba(175, 47, 47, 0.2);
+}
+
+.clear-completed {
+  float: right;
+  position: relative;
+  line-height: 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.clear-completed:hover {
+  text-decoration: underline;
+}
+
+.todo-count {
+  float: left;
+  text-align: left;
+}
+
+/* Miscellaneous */
+.hidden {
+  display: none;
 }
