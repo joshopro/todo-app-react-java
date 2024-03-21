@@ -15,23 +15,29 @@ public class TodoService {
     }
 
     Todo createTodo(Todo newTodo) {
-        return null; // TODO
+        return todoRepository.save(newTodo);
     }
 
     public List<Todo> getTodos() {
-        return null; // TODO
+        return todoRepository.findAll();
     }
 
     public Todo getTodo(Long id) throws NotFoundException {
-        return null; // TODO
+        return todoRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Todo not found with id: " + id));
     }
 
-    public Todo updateTodo(Long id, Todo updatedTodo) {
-        return null; // TODO
+    public Todo updateTodo(Long id, Todo updatedTodo) throws NotFoundException {
+        return todoRepository.findById(id)
+                .map(todo -> {
+                    todo.setTitle(updatedTodo.getTitle());
+                    todo.setCompleted(updatedTodo.isCompleted());
+                    return todoRepository.save(todo);
+                }).orElseThrow(() -> new NotFoundException("Todo not found with id: " + id));
     }
 
     public void deleteTodo(Long id) {
-        // TODO
+        todoRepository.deleteById(id);
     }
 
 }

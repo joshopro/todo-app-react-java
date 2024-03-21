@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javassist.NotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController()
 @RequestMapping("/todos")
@@ -26,28 +28,34 @@ public class TodoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TodoDto create(@RequestBody TodoDto createDto) {
-        return null; // TODO
+        Todo todo = TodoDto.toEntity(createDto);
+        Todo createdTodo = todoService.createTodo(todo);
+        return TodoDto.fromEntity(createdTodo);
     }
 
     @GetMapping
     public List<TodoDto> getAll() {
-        return null; // TODO
+        List<Todo> todos = todoService.getTodos();
+        return todos.stream().map(TodoDto::fromEntity).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public TodoDto getOne(@PathVariable("id") Long id) {
-        return null; // TODO
+    public TodoDto getOne(@PathVariable("id") Long id) throws NotFoundException {
+        Todo todo = todoService.getTodo(id);
+        return TodoDto.fromEntity(todo);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public TodoDto put(@PathVariable("id") Long id, @RequestBody TodoDto updated) {
-        return null; // TODO
+    public TodoDto put(@PathVariable("id") Long id, @RequestBody TodoDto updated) throws NotFoundException {
+        Todo updatedTodo = TodoDto.toEntity(updated);
+        Todo todo = todoService.updateTodo(id, updatedTodo);
+        return TodoDto.fromEntity(todo);
     }
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) {
-        // TODO
+        todoService.deleteTodo(id);
     }
 
 }
