@@ -1,0 +1,11 @@
+.DS_Store
+
+.idea
+*.iml
+
+.gradle
+build
+
+todo-client/node_modules
+.eslintcache
+todo-server/bin/
